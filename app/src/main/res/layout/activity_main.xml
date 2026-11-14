@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/app_name"
+            android:textColor="@color/text"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPeriod"
+            style="@style/Dim"
+            android:layout_marginTop="4dp"
+            android:text="11월 1일부터 집계 중" />
+
+        <!-- Hero: usage ring -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_hero"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="28dp"
+            android:paddingBottom="24dp">
+
+            <FrameLayout
+                android:layout_width="220dp"
+                android:layout_height="220dp">
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/ring"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:max="1000"
+                    app:indicatorColor="@color/accent"
+                    app:indicatorSize="220dp"
+                    app:trackColor="@color/surface_hi"
+                    app:trackCornerRadius="10dp"
+                    app:trackThickness="16dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvUsed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:textColor="@color/text"
+                        android:textSize="52sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLimit"
+                        style="@style/Dim"
+                        android:text="/ 250분"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_field"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:text="● 보호 중"
+                android:textColor="@color/ok"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvRemain"
+                style="@style/Dim"
+                android:layout_marginTop="10dp"
+                android:text="남은 영상통화 250분" />
+        </LinearLayout>
+
+        <!-- Permissions -->
+        <LinearLayout
+            android:id="@+id/cardPerms"
+            style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="필수 권한" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="모두 허용되어야 정확하게 감시하고 차단할 수 있어요." />
+
+            <LinearLayout
+                android:id="@+id/permList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical" />
+        </LinearLayout>
+
+        <!-- How it works -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="이렇게 동작해요" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="8dp"
+                android:lineSpacingExtra="4dp"
+                android:text="• 통신사 영상통화 중 '거는 전화'만 집계해요 (통신사 차감 기준)\n• 한도를 넘으면 영상통화를 자동으로 끊어요\n• 음성통화와 카카오톡 영상통화는 건드리지 않아요\n• 매월 집계 시작일에 자동으로 초기화돼요" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnParent"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="12dp"
+            android:text="🔒  부모 설정"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="18dp" />
+    </LinearLayout>
+</ScrollView>

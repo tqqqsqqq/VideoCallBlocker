@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="부모 설정"
+            android:textColor="@color/text"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <!-- Protection toggle -->
+        <LinearLayout style="@style/Card">
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/swEnabled"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="영상통화 보호 켜기"
+                android:textColor="@color/text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- Limit -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="월 영상통화 한도 (분)" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="통신사 무료 제공량(예: 300분)보다 조금 적게 잡는 걸 추천해요." />
+
+            <EditText
+                android:id="@+id/etLimit"
+                style="@style/Field"
+                android:hint="250" />
+
+            <TextView
+                style="@style/CardTitle"
+                android:layout_marginTop="18dp"
+                android:text="매월 집계 시작일" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="통신사 요금 청구 기준일 (보통 1일, 1~28)" />
+
+            <EditText
+                android:id="@+id/etResetDay"
+                style="@style/Field"
+                android:hint="1" />
+        </LinearLayout>
+
+        <!-- Manual usage -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="이번 달 사용량 보정" />
+
+            <TextView
+                android:id="@+id/tvDetected"
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="통신사 앱에서 확인한 이번 달 영상통화 사용 시간을 입력하세요. 한도보다 많으면 즉시 차단됩니다." />
+
+            <EditText
+                android:id="@+id/etUsedNow"
+                style="@style/Field"
+                android:hint="예: 300" />
+        </LinearLayout>
+
+        <!-- Parent Phone for SMS -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="영상통화 알림 받을 부모 번호" />
+
+            <TextView
+                style="@style/Dim"
+                android:layout_marginTop="4dp"
+                android:text="번호를 입력하면 영상통화 종료 시 상대방/통화시간/월누적이 문자로 전송됩니다. (비워두면 비활성화)" />
+
+            <EditText
+                android:id="@+id/etParentPhone"
+                style="@style/Field"
+                android:hint="예: 01012345678"
+                android:inputType="phone" />
+        </LinearLayout>
+
+        <!-- PIN -->
+        <LinearLayout style="@style/Card">
+
+            <TextView
+                style="@style/CardTitle"
+                android:text="부모 PIN 변경" />
+
+            <EditText
+                android:id="@+id/etNewPin"
+                style="@style/Field"
+                android:hint="새 PIN (4자리 이상, 비워두면 유지)"
+                android:inputType="numberPassword" />
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:text="저장"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:backgroundTint="@color/accent"
+            app:cornerRadius="18dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnResetUsage"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="12dp"
+            android:text="이번 달 사용량 0으로 초기화"
+            android:textColor="@color/danger" />
+    </LinearLayout>
+</ScrollView>
