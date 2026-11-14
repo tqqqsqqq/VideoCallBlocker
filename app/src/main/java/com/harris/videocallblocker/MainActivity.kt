@@ -104,8 +104,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun renderPerms() {
         val items = mutableListOf(
-            PermItem("전화 · 통화기록 · 문자", "영상통화 감지 및 종료, 부모 문자 알림", Usage.hasPhonePerms(this)) {
+            PermItem("전화 · 주소록 · 통화기록 · 문자", "영상통화 감지, 상대방 이름(아빠 등) 확인, 부모 문자 알림", Usage.hasPhonePerms(this)) {
                 permLauncher.launch(Usage.PHONE_PERMS)
+            },
+            PermItem("통화 자동 종료 (접근성)", "갤럭시 통화 강제 종료를 위해 [설치된 앱]에서 켜기", Usage.isAccessibilityEnabled(this)) {
+                MaterialAlertDialogBuilder(this)
+                    .setTitle("접근성 서비스 권한 안내")
+                    .setMessage("삼성 갤럭시 등 최신 폰에서는 접근성 권한이 있어야 한도 초과 시 영상통화를 확실하게 종료할 수 있습니다.\n\n설정 화면으로 이동하면 [설치된 앱] (또는 다운로드된 서비스) → [영상통화 지킴이]를 선택하여 켜주세요.")
+                    .setPositiveButton("설정으로 이동") { _, _ ->
+                        startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                    }
+                    .setNegativeButton("취소", null)
+                    .show()
             },
             PermItem("사용정보 접근", "음성통화 중 카메라 사용을 영상통화로 오인하지 않기", Usage.hasUsageAccess(this)) {
                 startActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS))

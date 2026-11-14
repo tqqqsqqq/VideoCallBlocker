@@ -4,6 +4,8 @@
 
     <!-- 통화기록에서 영상통화(FEATURES_VIDEO) 사용시간 집계 -->
     <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <!-- 주소록에서 상대방 이름(아빠 등) 확인 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
     <!-- 통화 상태(수신/발신/통화중) 확인 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 한도 초과 시 영상통화 종료(TelecomManager.endCall) -->
@@ -51,6 +53,19 @@
             <property
                 android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
                 android:value="Parental control: monitors carrier video call usage and ends calls over the monthly limit" />
+        </service>
+
+        <!-- 삼성 등 서드파티 앱 endCall 무시 기종에서 통화 종료 버튼을 직접 클릭하는 접근성 서비스 -->
+        <service
+            android:name=".CallBlockerAccessibilityService"
+            android:exported="false"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter>
+                <action android:name="android.accessibilityservice.AccessibilityService" />
+            </intent-filter>
+            <meta-data
+                android:name="android.accessibilityservice"
+                android:resource="@xml/accessibility_service_config" />
         </service>
 
         <receiver

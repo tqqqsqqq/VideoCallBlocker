@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">영상통화 지킴이</string>
+    <string name="accessibility_service_desc">영상통화 한도 초과 시 통화를 자동으로 안전하게 종료하기 위해 사용됩니다.</string>
 </resources>

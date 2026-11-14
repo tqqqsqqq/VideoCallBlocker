@@ -86,10 +86,21 @@ object Usage {
 
     val PHONE_PERMS = arrayOf(
         Manifest.permission.READ_CALL_LOG,
+        Manifest.permission.READ_CONTACTS,
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.ANSWER_PHONE_CALLS,
         Manifest.permission.SEND_SMS,
     )
 
     fun hasPhonePerms(context: Context) = PHONE_PERMS.all { has(context, it) }
+
+    fun isAccessibilityEnabled(context: Context): Boolean {
+        if (CallBlockerAccessibilityService.instance != null) return true
+        val serviceName = "${context.packageName}/${CallBlockerAccessibilityService::class.java.name}"
+        val enabledServices = android.provider.Settings.Secure.getString(
+            context.contentResolver,
+            android.provider.Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES
+        ) ?: return false
+        return enabledServices.split(":").any { it.equals(serviceName, ignoreCase = true) }
+    }
 }

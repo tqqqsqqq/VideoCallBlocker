@@ -211,13 +211,33 @@ class GuardService : Service() {
         }, 2000L)
     }
 
-    @Suppress("DEPRECATION", "MissingPermission")
-    private fun endCall() {
-        try {
-            val ok = getSystemService(TelecomManager::class.java).endCall()
-            Log.i(TAG, "endCall -> $ok")
-        } catch (e: Exception) {
-            Log.e(TAG, "endCall failed", e)
+    private fun endCall(retryCount: Int = 0) {
+        var disconnected = false
+
+        // 1. 접근성 서비스를 통한 종료 버튼 물리적 클릭 (삼성 갤럭시에서 가장 확실함)
+        val a11y = CallBlockerAccessibilityService.instance
+        if (a11y != null) {
+            disconnected = a11y.disconnectCurrentCall()
+            Log.i(TAG, "endCall via AccessibilityService -> $disconnected")
+        }
+
+        // 2. TelecomManager.endCall() 시도 (표준 안드로이드 API)
+        if (!disconnected) {
+            try {
+                @Suppress("DEPRECATION", "MissingPermission")
+                val ok = getSystemService(TelecomManager::class.java).endCall()
+                Log.i(TAG, "endCall via TelecomManager -> $ok")
+                disconnected = ok
+            } catch (e: Exception) {
+                Log.e(TAG, "endCall TelecomManager failed", e)
+            }
+        }
+
+        // 3. 만약 여전히 통화 중이면 600ms 후 최대 3회 재시도
+        if (retryCount < 3 && (isInCallSafe() || callState == TelephonyManager.CALL_STATE_OFFHOOK)) {
+            handler.postDelayed({
+                endCall(retryCount + 1)
+            }, 600L)
         }
     }
 
